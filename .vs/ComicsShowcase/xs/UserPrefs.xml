@@ -1,0 +1,24 @@
+﻿<Properties StartupConfiguration="{538524AC-0B3C-46E5-9D71-203BAB29BEDA}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Models/ComicBook.cs">
+    <Files>
+      <File FileName="ComicsShowcase/Controllers/ValuesController.cs" Line="1" Column="1" />
+      <File FileName="ComicsShowcase/ComicsShowcase.csproj" Line="1" Column="1" />
+      <File FileName="ComicsShowcase/appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="ComicsShowcase/Program.cs" Line="1" Column="1" />
+      <File FileName="ComicsShowcase/Startup.cs" Line="1" Column="1" />
+      <File FileName="ComicsShowcase/Models/User.cs" Line="24" Column="46" />
+      <File FileName="ComicsShowcase/Models/ComicBook.cs" Line="14" Column="9" />
+      <File FileName="ComicsShowcase/Models/Creator.cs" Line="15" Column="39" />
+      <File FileName="ComicsShowcase/Models/GraphicNovel.cs" Line="12" Column="46" />
+      <File FileName="ComicsShowcase/Models/Collectible.cs" Line="12" Column="46" />
+      <File FileName="ComicsShowcase/Models/Movie.cs" Line="13" Column="46" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.ComicsShowcase PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
