@@ -5,6 +5,8 @@ namespace ComicsShowcase.Models
 {
     public class Collectible
     {
+        [Key]
+        public int ID { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]

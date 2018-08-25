@@ -3,7 +3,6 @@
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/bin/Debug/netcoreapp2.1/ComicsShowcase.runtimeconfig.dev.json
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/bin/Debug/netcoreapp2.1/ComicsShowcase.dll
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/bin/Debug/netcoreapp2.1/ComicsShowcase.pdb
-/Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.csprojResolveAssemblyReference.cache
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.csproj.CoreCompileInputs.cache
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.RazorAssemblyInfo.cache
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.RazorAssemblyInfo.cs
@@ -12,3 +11,4 @@
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.RazorTargetAssemblyInfo.cache
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.dll
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.pdb
+/Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.csprojAssemblyReference.cache

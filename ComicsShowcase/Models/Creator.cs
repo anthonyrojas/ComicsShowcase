@@ -5,6 +5,8 @@ namespace ComicsShowcase.Models
 {
     public class Creator
     {
+        [Key]
+        public int ID { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
