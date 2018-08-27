@@ -19,5 +19,6 @@
 
   <ItemGroup>
     <Compile Remove="Models\ModelsImage.cs" />
+    <Compile Remove="Middleware\CustomAuthorization.cs" />
   </ItemGroup>
 </Project>

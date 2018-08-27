@@ -1,11 +1,9 @@
 ﻿<Properties StartupConfiguration="{538524AC-0B3C-46E5-9D71-203BAB29BEDA}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Controllers/UsersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Controllers/ComicsController.cs">
     <Files>
-      <File FileName="ComicsShowcase/Controllers/UsersController.cs" Line="50" Column="37" />
       <File FileName="ComicsShowcase/Models/ComicsContext.cs" Line="15" Column="49" />
-      <File FileName="ComicsShowcase/Models/User.cs" Line="10" Column="22" />
-      <File FileName="ComicsShowcase/Models/Creator.cs" Line="8" Column="13" />
-      <File FileName="ComicsShowcase/Models/Publisher.cs" Line="1" Column="1" />
+      <File FileName="ComicsShowcase/Models/User.cs" Line="24" Column="19" />
+      <File FileName="ComicsShowcase/Controllers/ComicsController.cs" Line="14" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.ComicsShowcase PreferredExecutionTarget="MonoDevelop.Default" />

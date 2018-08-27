@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
@@ -10,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ComicsShowcase.Controllers
 {
+    [Authorize(Roles = "User")]
     [Route("api/[controller]")]
     public class ComicsController : Controller
     {
