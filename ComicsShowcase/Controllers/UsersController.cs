@@ -44,10 +44,16 @@ namespace ComicsShowcase.Controllers
                     }
 
                     user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, SaltRevision.Revision2B);
+                    if (!string.IsNullOrEmpty(user.ProfileStr))
+                    {
+                        string[] imgData = user.ProfileStr.Split(new []{"base64,"}, StringSplitOptions.None);
+                        user.ProfileStr = imgData[0];
+                        user.Profile = Convert.FromBase64String(imgData[1]);
+                    }
                     _context.Users.Add(user);
                     await _context.SaveChangesAsync();
                     user.Password = null;
-                    return Json(user);
+                    return Ok(new { statusMessage = "Successfully registered!", user });
                 }
                 catch (Exception e)
                 {
@@ -57,6 +63,7 @@ namespace ComicsShowcase.Controllers
             return BadRequest(ModelState);
         }
 
+        // POST api/users/login
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]LoginModel userLogin)
@@ -105,7 +112,7 @@ namespace ComicsShowcase.Controllers
             }
         }
 
-        // GET api/values/5
+        // GET api/users/account
         [HttpGet("account")]
         public async Task<IActionResult> GetAccountInfo()
         {

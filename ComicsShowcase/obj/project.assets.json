@@ -2,11 +2,10 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
-      "BCrypt.Net-Core/1.4.0": {
+      "BCrypt.Net-Core/1.5.0": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.1",
-          "System.Runtime.Extensions": "4.1.0"
+          "NETStandard.Library": "1.6.1"
         },
         "compile": {
           "lib/netstandard1.3/BCrypt.Net-Core.dll": {}
@@ -4366,12 +4365,13 @@
     }
   },
   "libraries": {
-    "BCrypt.Net-Core/1.4.0": {
-      "sha512": "61fIfobQh+o1vsoLTY6abM2UnyFLGAXJSqLYAwlNMfC3445kDD57AqLrJIAOFcHsgn+T3i8tbCP0ugK5btA6Uw==",
+    "BCrypt.Net-Core/1.5.0": {
+      "sha512": "qDKpCBcopQn/Ia1pTAqm/rEgy8PM057JFFNtslkOZQnBWGPbY4vxWouWGqUbUlJdxe6nwITta3jtkxlz/JVJzQ==",
       "type": "package",
-      "path": "bcrypt.net-core/1.4.0",
+      "path": "bcrypt.net-core/1.5.0",
       "files": [
-        "bcrypt.net-core.1.4.0.nupkg.sha512",
+        ".signature.p7s",
+        "bcrypt.net-core.1.5.0.nupkg.sha512",
         "bcrypt.net-core.nuspec",
         "lib/net40/BCrypt.Net-Core.dll",
         "lib/net45/BCrypt.Net-Core.dll",
@@ -11574,7 +11574,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "BCrypt.Net-Core >= 1.4.0",
+      "BCrypt.Net-Core >= 1.5.0",
       "Microsoft.AspNetCore.App >= 2.1.0-rtm-30752",
       "Microsoft.NETCore.App >= 2.1.2",
       "Newtonsoft.Json >= 11.0.2",
@@ -11635,7 +11635,7 @@
           },
           "BCrypt.Net-Core": {
             "target": "Package",
-            "version": "1.4.0"
+            "version": "1.5.0"
           },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
