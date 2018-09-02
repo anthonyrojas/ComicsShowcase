@@ -8,11 +8,12 @@ using ComicsShowcase.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ComicsShowcase.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     [Route("api/[controller]")]
     public class CreatorsController : Controller
     {
@@ -26,16 +27,19 @@ namespace ComicsShowcase.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCreator([FromBody]Creator creatorModel)
         {
-            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            creatorModel.User = await _context.Users.SingleOrDefaultAsync(u => u.ID == uID);
-            if (ModelState.IsValid)
+            int userID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            User userInfo = await _context.Users.FirstOrDefaultAsync(u => u.ID == userID);
+            creatorModel.User = userInfo;
+            var validationContext = new ValidationContext(creatorModel, null, null);
+            var results = new List<ValidationResult>();
+            if (Validator.TryValidateObject(creatorModel, validationContext, results, true))
             {
                 await _context.Creators.AddAsync(creatorModel);
                 await _context.SaveChangesAsync();
                 return Ok(new { statusMessage = "Creator added.", creator = creatorModel });
             }else
             {
-                return BadRequest(new { statusMessage = "Unable to add creator at this time. " + ModelState });
+                return BadRequest(new { statusMessage = "Unable to add creator at this time. ", errors = results.ToArray() });
             }
         }
         [HttpGet("{id}")]
@@ -53,12 +57,14 @@ namespace ComicsShowcase.Controllers
         public async Task<IActionResult> GetCreators()
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            List<Creator> creatorsFound = await _context.Creators.Include(c => c.User).Where(c => c.User.ID == uID).ToListAsync();
+            List<Creator> creatorsFound = await _context.Creators.Where(c => c.User.ID == uID).ToListAsync();
             if(creatorsFound != null && creatorsFound.Count() > 0)
             {
                 return Ok(new {statusMessage = "Creators found.", creators = creatorsFound});
+            }else if(creatorsFound.Count()== 0){
+                return BadRequest(new { statusMessage = "No creators found." });
             }
-            return BadRequest(new {statusMessage = "Unable to retrieve creators or no creators exist."});
+            return BadRequest(new {statusMessage = "Unable to retrieve creators."});
         }
 
         [HttpDelete("{id}")]
@@ -79,13 +85,16 @@ namespace ComicsShowcase.Controllers
         public async Task<IActionResult> UpdateCreator([FromBody] Creator creatorModel)
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            if(ModelState.IsValid)
+            creatorModel.User = await _context.Users.FirstOrDefaultAsync(u => u.ID == uID);
+            var validationContext = new ValidationContext(creatorModel, null, null);
+            var results = new List<ValidationResult>();
+            if (Validator.TryValidateObject(creatorModel, validationContext, results, true))
             {
                 _context.Creators.Update(creatorModel);
                 await _context.SaveChangesAsync();
                 return Ok(new {statusMessage = "Creator updated."});
             }
-            return BadRequest(new {statusMessage = "Unable to update creator. " + ModelState});
+            return BadRequest(new {statusMessage = "Unable to update creator.", errors = results});
         }
     }
 }

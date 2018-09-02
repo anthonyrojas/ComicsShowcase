@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using ComicsShowcase.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,23 +28,19 @@ namespace ComicsShowcase.Controllers
         public async Task<IActionResult> GetComics()
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var query = from c in _context.Comics where c.User.ID == uID select c;
-            if (query.Any())
+            List<ComicBook> comicsFound = await _context.Comics.Include(c => c.User).Include(c => c.Creators).Where(c => c.User.ID == uID).ToListAsync();
+            if (comicsFound != null && comicsFound.Any())
             {
-                ComicBook[] comics = await query.ToArrayAsync();
-                return Ok(new { statusMessage = "Comic books retrieved.", comics });
+                return Ok(new { statusMessage = "Comic books retrieved.", comics = comicsFound });
             }
-            else
-            {
-                return Ok(new { statusMessage = "No comic books to show." });
-            }
+            return BadRequest(new { statusMessage = "No comic books found." });
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetComic([FromBody]int id)
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            ComicBook comicFound = await _context.Comics.FirstOrDefaultAsync(c => c.ID == id);
+            ComicBook comicFound = await _context.Comics.Include(c=> c.User).Include(c => c.Creators).FirstOrDefaultAsync(c => c.ID == id);
             if (comicFound != null)
             {
                 return Ok(new { statusMessage = "Comic information retrieved!", comic = comicFound });
@@ -69,8 +66,10 @@ namespace ComicsShowcase.Controllers
         public async Task<IActionResult> CreateComic([FromBody]ComicBook comicModel)
         {
             try{
-                comicModel.User = _context.Users.FirstOrDefault(u => u.ID == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
-                if (ModelState.IsValid)
+                comicModel.User = await _context.Users.FirstOrDefaultAsync(u => u.ID == int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
+                var validationContext = new ValidationContext(comicModel, null, null);
+                var results = new List<ValidationResult>();
+                if (Validator.TryValidateObject(comicModel, validationContext, results, true))
                 {
                     if (!string.IsNullOrEmpty(comicModel.ImageStr))
                     {
@@ -82,10 +81,26 @@ namespace ComicsShowcase.Controllers
                     await _context.SaveChangesAsync();
                     return Ok(new { statusMessage = "Comic added successfully!", comic = comicModel });
                 }
-                return BadRequest(ModelState);
+                return BadRequest(new {statusMessage = "Unable to add comic.", errors = results});
             }catch(Exception e){
                 return BadRequest(new { statusMessage = e.Message });
             }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateComic([FromBody] ComicBook comicModel)
+        {
+            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            comicModel.User = await _context.Users.FirstOrDefaultAsync(u => u.ID == uID);
+            var validationContext = new ValidationContext(comicModel, null, null);
+            var results = new List<ValidationResult>();
+            if(Validator.TryValidateObject(comicModel, validationContext, results, true))
+            {
+                _context.Comics.Update(comicModel);
+                await _context.SaveChangesAsync();
+                return Ok(new {statusMessage = "Comic updated successfully!", comic = comicModel});
+            }
+            return BadRequest(new {statusmessage = "Unable to update comic at this time.", errors = results});
         }
     }
 }

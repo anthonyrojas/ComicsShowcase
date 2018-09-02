@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ComicsShowcase.Models
 {
-    public partial class Creator
+    public class Creator
     {
         [Key]
         public int ID { get; set; }
@@ -20,20 +20,16 @@ namespace ComicsShowcase.Models
         [DisplayName("lastName")]
         public string LastName { get; set; }
 
-        [EnumDataType(typeof(Role), ErrorMessage = "Invalid creator role.")]
-        [DisplayName("role")]
-        public Role Role { get; set; }
-
         [Required]
         [DisplayName("user")]
         public User User { get; set; }
     }
 
-    public enum Role : int{
-        Writer = 0,
-        Artist = 1,
-        Inker = 2,
-        All = 3
+    public enum Role{
+        Writer,
+        Artist,
+        Inker,
+        All
     }
 
 }
