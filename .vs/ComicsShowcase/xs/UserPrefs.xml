@@ -1,18 +1,7 @@
 ﻿<Properties StartupConfiguration="{538524AC-0B3C-46E5-9D71-203BAB29BEDA}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Controllers/CollectiblesController.cs">
     <Files>
-      <File FileName="ComicsShowcase/Controllers/ComicsController.cs" Line="104" Column="18" />
-      <File FileName="ComicsShowcase/Models/Creator.cs" Line="21" Column="45" />
-      <File FileName="ComicsShowcase/Program.cs" Line="1" Column="1" />
-      <File FileName="ComicsShowcase/Startup.cs" Line="41" Column="30" />
-      <File FileName="ComicsShowcase/Models/User.cs" Line="1" Column="1" />
-      <File FileName="ComicsShowcase/Models/ComicsContext.cs" Line="19" Column="74" />
-      <File FileName="ComicsShowcase/Models/Publisher.cs" Line="5" Column="2" />
-      <File FileName="ComicsShowcase/Models/ComicBook.cs" Line="1" Column="1" />
-      <File FileName="ComicsShowcase/Models/GraphicNovel.cs" Line="1" Column="1" />
-      <File FileName="ComicsShowcase/Controllers/CreatorsController.cs" Line="11" Column="45" />
-      <File FileName="ComicsShowcase/Controllers/GraphicNovelsController.cs" Line="102" Column="116" />
-      <File FileName="ComicsShowcase/Controllers/CollectiblesController.cs" Line="11" Column="20" />
+      <File FileName="ComicsShowcase/Controllers/CollectiblesController.cs" Line="37" Column="82" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.ComicsShowcase PreferredExecutionTarget="MonoDevelop.Default" />

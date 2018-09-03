@@ -34,6 +34,9 @@ namespace ComicsShowcase.Migrations
 
                     b.Property<string>("ImageStr");
 
+                    b.Property<string>("ItemCategory")
+                        .IsRequired();
+
                     b.Property<string>("Title")
                         .IsRequired();
 
@@ -54,7 +57,8 @@ namespace ComicsShowcase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Conidition");
+                    b.Property<string>("Conidition")
+                        .IsRequired();
 
                     b.Property<string>("Description")
                         .IsRequired();
@@ -65,7 +69,8 @@ namespace ComicsShowcase.Migrations
 
                     b.Property<string>("ImageStr");
 
-                    b.Property<int>("Publisher");
+                    b.Property<string>("Publisher")
+                        .IsRequired();
 
                     b.Property<string>("Title")
                         .IsRequired();
@@ -116,7 +121,8 @@ namespace ComicsShowcase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookCondition");
+                    b.Property<string>("BookCondition")
+                        .IsRequired();
 
                     b.Property<string>("Description")
                         .IsRequired();
@@ -129,7 +135,8 @@ namespace ComicsShowcase.Migrations
 
                     b.Property<string>("ImageStr");
 
-                    b.Property<int>("Publisher");
+                    b.Property<string>("Publisher")
+                        .IsRequired();
 
                     b.Property<string>("Title")
                         .IsRequired();
@@ -151,7 +158,8 @@ namespace ComicsShowcase.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("DiskType");
+                    b.Property<string>("DiskType")
+                        .IsRequired();
 
                     b.Property<byte[]>("ImageData");
 

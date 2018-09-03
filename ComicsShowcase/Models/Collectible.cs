@@ -30,6 +30,10 @@ namespace ComicsShowcase.Models
         [DisplayName("autographed")]
         public bool Autographed { get; set; }
 
+        [Required]
+        [DisplayName("itemCategory")]
+        public CollectibleCategory ItemCategory { get; set; }
+
         [DisplayName("user")]
         public User User { get; set; }
     }

@@ -84,7 +84,7 @@ namespace ComicsShowcase.Controllers
         public async Task<IActionResult> UpdateGraphicNovel([FromBody] GraphicNovel graphicNovelModel)
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            graphicNovelModel.User = await _context.Users.FirstOrDefaultAsync(u => u.ID = uID);
+            graphicNovelModel.User = await _context.Users.FirstOrDefaultAsync(u => u.ID == uID);
             var validationContext = new ValidationContext(graphicNovelModel, null, null);
             var results = new List<ValidationResult>();
             if(Validator.TryValidateObject(graphicNovelModel, validationContext, results, true))

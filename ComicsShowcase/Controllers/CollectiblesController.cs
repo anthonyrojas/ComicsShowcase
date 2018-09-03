@@ -31,6 +31,12 @@ namespace ComicsShowcase.Controllers
             var collectibles = await _context.Collectibles.Where(c => c.User.ID == uID).ToListAsync();
             if (collectibles.Any() && collectibles != null)
             {
+                collectibles.ForEach(c => { 
+                    if(c.ImageData != null && c.ImageStr != null)
+                    {
+                        //convert the image data byte array in image str property
+                    }
+                });
                 return Ok(new {statusMessage = "Collectibles retrieved successfully.", collectibles});
             }
             return BadRequest(new {statusMessage = "No collectibles found."});
@@ -71,8 +77,39 @@ namespace ComicsShowcase.Controllers
             var results = new List<ValidationResult>();
             if(Validator.TryValidateObject(collectibleModel, validationContext, results, true))
             {
-
+                if(!string.IsNullOrEmpty(collectibleModel.ImageStr))
+                {
+                    string[] imgData = collectibleModel.ImageStr.Split(new[] { "base64," }, StringSplitOptions.None);
+                    collectibleModel.ImageStr = imgData[0];
+                    collectibleModel.ImageData = Convert.FromBase64String(imgData[1]);
+                }
+                await _context.Collectibles.AddAsync(collectibleModel);
+                await _context.SaveChangesAsync();
+                return Ok(new {statusMessage = "Collectible added!", collectible = collectibleModel});
             }
+            return BadRequest(new {statusMessage = "Unable to add collectible at this time.", errors = results});
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateCollectible([FromBody] Collectible collectibleModel)
+        {
+            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            collectibleModel.User = await _context.Users.FirstOrDefaultAsync(u => u.ID == uID);
+            var validationContext = new ValidationContext(collectibleModel, null, null);
+            var results = new List<ValidationResult>();
+            if (Validator.TryValidateObject(collectibleModel, validationContext, results, true))
+            {
+                if (!string.IsNullOrEmpty(collectibleModel.ImageStr))
+                {
+                    string[] imgData = collectibleModel.ImageStr.Split(new[] { "base64," }, StringSplitOptions.None);
+                    collectibleModel.ImageStr = imgData[0];
+                    collectibleModel.ImageData = Convert.FromBase64String(imgData[1]);
+                }
+                _context.Collectibles.Update(collectibleModel);
+                await _context.SaveChangesAsync();
+                return Ok(new { statusMessage = "Collectible updated!", collectible = collectibleModel });
+            }
+            return BadRequest(new { statusMessage = "Unable to update collectible at this time.", errors = results });
         }
     }
 }

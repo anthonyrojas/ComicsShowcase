@@ -6,7 +6,7 @@ namespace ComicsShowcase.Models
     public enum Publisher
     {
         DC,
-        DC_Vertigo,
+        Vertigo,
         Marvel,
         Image,
         Valiant,
