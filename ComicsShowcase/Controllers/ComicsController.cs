@@ -96,6 +96,12 @@ namespace ComicsShowcase.Controllers
             var results = new List<ValidationResult>();
             if(Validator.TryValidateObject(comicModel, validationContext, results, true))
             {
+                if (!string.IsNullOrEmpty(comicModel.ImageStr))
+                {
+                    string[] imgData = comicModel.ImageStr.Split(new[] { "base64," }, StringSplitOptions.None);
+                    comicModel.ImageStr = imgData[0];
+                    comicModel.ImageData = Convert.FromBase64String(imgData[1]);
+                }
                 _context.Comics.Update(comicModel);
                 await _context.SaveChangesAsync();
                 return Ok(new {statusMessage = "Comic updated successfully!", comic = comicModel});
