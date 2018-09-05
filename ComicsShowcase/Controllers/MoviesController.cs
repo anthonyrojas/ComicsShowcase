@@ -26,10 +26,16 @@ namespace ComicsShowcase.Controllers
         public async Task<IActionResult> GetMovies()
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var moviesFound = _context.Movies.Where(m => m.User.ID == uID);
+            List<Movie> moviesFound = await .Movies.Where(m => m.User.ID == uID).ToListAsync();
             if (moviesFound.Any())
             {
-                return Ok(new {statusMessage = "Movies found.", movies = await moviesFound.ToArrayAsync()});
+                moviesFound.ForEach(m => {
+                    if(m.ImageStr != null && m.ImageData != null)
+                    {
+                        m.ImageStr = m.ImageStr + "base64," + Convert.ToBase64String(m.ImageData);
+                    }
+                });
+                return Ok(new {statusMessage = "Movies found.", movies = moviesFound});
             }
             return BadRequest(new {statusMessage = "No movies found."});
         }
@@ -41,6 +47,10 @@ namespace ComicsShowcase.Controllers
             Movie movieFound = await _context.Movies.Include(m => m.User).FirstOrDefaultAsync(m => m.User.ID == uID);
             if(movieFound != null)
             {
+                if(movieFound.ImageStr != null && movieFound.ImageData != null)
+                {
+                    movieFound.ImageStr = movieFound.ImageStr + "base64," + Convert.ToBase64String(movieFound.ImageData);
+                }
                 return Ok(new {statusMessage = "Movie information retrieved.", movie = movieFound});
             }
             return BadRequest(new {statusMessage = "Unable to fetch movie information."});

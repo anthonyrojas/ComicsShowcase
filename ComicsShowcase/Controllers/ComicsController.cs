@@ -31,6 +31,12 @@ namespace ComicsShowcase.Controllers
             List<ComicBook> comicsFound = await _context.Comics.Include(c => c.User).Include(c => c.Creators).Where(c => c.User.ID == uID).ToListAsync();
             if (comicsFound != null && comicsFound.Any())
             {
+                comicsFound.ForEach(c => {
+                    if(c.ImageStr != null && c.ImageData != null)
+                    {
+                        c.ImageStr = c.ImageStr + "base64," + Convert.ToBase64String(c.ImageData);
+                    }
+                });
                 return Ok(new { statusMessage = "Comic books retrieved.", comics = comicsFound });
             }
             return BadRequest(new { statusMessage = "No comic books found." });
@@ -43,6 +49,10 @@ namespace ComicsShowcase.Controllers
             ComicBook comicFound = await _context.Comics.Include(c=> c.User).Include(c => c.Creators).FirstOrDefaultAsync(c => c.ID == id);
             if (comicFound != null)
             {
+                if(comicFound.ImageStr != null && comicFound.ImageData != null)
+                {
+                    comicFound.ImageStr = comicFound.ImageStr + "base64," + Convert.ToBase64String(comicFound.ImageData);
+                }
                 return Ok(new { statusMessage = "Comic information retrieved!", comic = comicFound });
             }
             return BadRequest(new { statusMessage = "Unable to find comic." });

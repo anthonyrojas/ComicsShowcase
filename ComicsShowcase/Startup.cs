@@ -65,6 +65,7 @@ namespace ComicsShowcase
             app.UseCors("EnableCORS");
             app.UseAuthentication();
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

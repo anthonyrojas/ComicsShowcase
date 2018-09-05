@@ -124,6 +124,10 @@ namespace ComicsShowcase.Controllers
             if(userInfo != null)
             {
                 userInfo.Password = null;
+                if(userInfo.ProfileStr != null && userInfo.Profile != null)
+                {
+                    userInfo.ProfileStr = userInfo.ProfileStr + "base64," + Convert.ToBase64String(userInfo.Profile);
+                }
                 return Ok(new { user = userInfo, statusMessage = "User account information retrieved!" });
             }
             return BadRequest(new {statusMessage = "Unable to find your account information. Please log out and sign in again."});

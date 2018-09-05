@@ -49,5 +49,11 @@ namespace ComicsShowcase.Models
 
         [DisplayName("profile")]
         public byte[] Profile { get; set; }
+
+        [DisplayName("redditUsername")]
+        public string redditUsername { get; set; }
+
+        [DisplayName("instagramUsername")]
+        public string instagramUsername { get; set; }
     }
 }

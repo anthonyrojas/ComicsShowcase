@@ -35,6 +35,7 @@ namespace ComicsShowcase.Controllers
                     if(c.ImageData != null && c.ImageStr != null)
                     {
                         //convert the image data byte array in image str property
+                        c.ImageStr = c.ImageStr + "base64," + Convert.ToBase64String(c.ImageData);
                     }
                 });
                 return Ok(new {statusMessage = "Collectibles retrieved successfully.", collectibles});
@@ -49,6 +50,10 @@ namespace ComicsShowcase.Controllers
             Collectible collectibleFound = await _context.Collectibles.Include(c => c.User).FirstOrDefaultAsync(c => c.ID == id && c.User.ID == uID);
             if(collectibleFound != null)
             {
+                if(collectibleFound.ImageStr != null && collectibleFound.ImageData != null)
+                {
+                    collectibleFound.ImageStr = collectibleFound.ImageStr + "base64," + Convert.ToBase64String(collectibleFound.ImageData);
+                }
                 return Ok(new {statusMessage = "Collectible retrieved.", collectible = collectibleFound});
             }
             return BadRequest(new {statusMessage = "Unable to retrieve collectible information."});

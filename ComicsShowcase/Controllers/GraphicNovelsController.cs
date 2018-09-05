@@ -29,6 +29,12 @@ namespace ComicsShowcase.Controllers
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             List<GraphicNovel> graphicNovelsFound = await _context.GraphicNovels.Include(g => g.Creators).Where(g => g.User.ID == uID).ToListAsync();
             if(graphicNovelsFound.Any()){
+                graphicNovelsFound.ForEach(g => {
+                    if(g.ImageStr != null && g.ImageData != null)
+                    {
+                        g.ImageStr = g.ImageStr + "base64," + Convert.ToBase64String(g.ImageData);
+                    }
+                });
                 return Ok(new {statusMessage = "Graphic novels retrieved!", graphicNovels = graphicNovelsFound});
             }
             return BadRequest(new {statusMessage = "No graphic novels found."});
@@ -41,6 +47,10 @@ namespace ComicsShowcase.Controllers
             GraphicNovel novelFound = await _context.GraphicNovels.Include(g => g.Creators).Include(g => g.User).FirstOrDefaultAsync(g => g.User.ID == uID && g.ID == id);
             if(novelFound != null)
             {
+                if(novelFound.ImageStr != null && novelFound.ImageData != null)
+                {
+                    novelFound.ImageStr = novelFound.ImageStr + "base64," + Convert.ToBase64String(novelFound.ImageData);
+                }
                 return Ok(new {statusMessage = "Graphic novel retrieved.", graphicNovel = novelFound});
             }
             return BadRequest(new {statusMessage = "Graphic novel information not found."});
