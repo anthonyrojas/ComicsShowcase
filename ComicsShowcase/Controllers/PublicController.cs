@@ -119,5 +119,32 @@ namespace ComicsShowcase.Controllers
             }
             return BadRequest(new { statusMessage = "User with that username does not exist." });
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetFullPublicUserInfo(int id){
+            User userFound = await _context.Users.FirstOrDefaultAsync(u => u.ID == id);
+            if (userFound != null)
+            {
+                userFound.Password = null;
+                List<ComicBook> comicsFound = await _context.Comics.Where(u => u.User.ID == userFound.ID).Include(c => c.Creators).Include(c => c.Conidition).ToListAsync();
+                List<GraphicNovel> novelsFound = await _context.GraphicNovels.Where(g => g.User.ID == userFound.ID).Include(g => g.Creators).Include(g => g.BookCondition).ToListAsync();
+                List<Collectible> collectiblesFound = await _context.Collectibles.Where(c => c.User.ID == userFound.ID).ToListAsync();
+                List<Movie> moviesFound = await _context.Movies.Where(m => m.User.ID == userFound.ID).Include(m => m.DiskType).ToListAsync();
+                return Ok(new
+                {
+                    statusMessage = "User information found!",
+                    user = userFound,
+                    comics = comicsFound,
+                    graphicNovels = novelsFound,
+                    collectibles = collectiblesFound,
+                    movies = moviesFound,
+                    comicsCount = comicsFound.Count(),
+                    graphicNovelCount = novelsFound.Count(),
+                    collectiblesCount = collectiblesFound.Count(),
+                    moviesCount = moviesFound.Count()
+
+                });
+            }
+            return BadRequest(new { statusMessage = "User with that username does not exist." });
+        }
     }
 }
