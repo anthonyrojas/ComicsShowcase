@@ -1,11 +1,11 @@
 ﻿<Properties StartupConfiguration="{538524AC-0B3C-46E5-9D71-203BAB29BEDA}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Controllers/PublicController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Controllers/UsersController.cs">
     <Files>
       <File FileName="ComicsShowcase/Controllers/CollectiblesController.cs" Line="55" Column="138" />
       <File FileName="ComicsShowcase/Controllers/ComicsController.cs" Line="54" Column="120" />
       <File FileName="ComicsShowcase/Controllers/GraphicNovelsController.cs" Line="32" Column="43" />
       <File FileName="ComicsShowcase/Controllers/MoviesController.cs" Line="35" Column="97" />
-      <File FileName="ComicsShowcase/Controllers/UsersController.cs" Line="129" Column="116" />
+      <File FileName="ComicsShowcase/Controllers/UsersController.cs" Line="73" Column="114" />
       <File FileName="ComicsShowcase/Program.cs" Line="1" Column="1" />
       <File FileName="ComicsShowcase/Startup.cs" Line="68" Column="34" />
       <File FileName="ComicsShowcase/appsettings.json" Line="1" Column="1" />

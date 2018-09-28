@@ -68,6 +68,13 @@ namespace ComicsShowcase.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]LoginModel userLogin)
         {
+            if(String.IsNullOrEmpty(userLogin.Username) && String.IsNullOrEmpty(userLogin.Password)){
+                return BadRequest(new { 
+                    statusMessage = "You have errors in your input. Please fill out all fields with valid data.",
+                    usernameErr = "You must enter your username.",
+                    passwordErr = "You must enter your password."
+                });
+            }
             if(String.IsNullOrEmpty(userLogin.Username))
             {
                 return BadRequest(new { statusMessage = "You must enter your username." });
