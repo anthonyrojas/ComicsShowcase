@@ -26,7 +26,7 @@ namespace ComicsShowcase.Controllers
         public async Task<IActionResult> GetMovies()
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            List<Movie> moviesFound = await .Movies.Where(m => m.User.ID == uID).ToListAsync();
+            List<Movie> moviesFound = await _context.Movies.Where(m => m.User.ID == uID).ToListAsync();
             if (moviesFound.Any())
             {
                 moviesFound.ForEach(m => {
