@@ -22,11 +22,11 @@ namespace ComicsShowcase.Controllers
             _context = context;
         }
 
-        //usernames are unique so only a single user will be returned
+        //usernames are unique so only a single user should be returned
         [HttpPost("search/username")]
-        public async Task<IActionResult> SearchByUsername([FromBody]string username)
+        public async Task<IActionResult> SearchByUsername([FromBody]string searchValue)
         {
-            var usersFound = _context.Users.Where(u => u.Username == username).Select(u => new {
+            var usersFound = _context.Users.Where(u => u.Username == searchValue).Select(u => new {
                 username = u.Username,
                 email = u.Email,
                 profileStr = u.Profile != null && u.ProfileStr != null ? u.ProfileStr + "base64," + Convert.ToBase64String(u.Profile) : null,
@@ -42,9 +42,9 @@ namespace ComicsShowcase.Controllers
         }
 
         [HttpPost("search/email")]
-        public async Task<IActionResult> SearchByEmail([FromBody]string email)
+        public async Task<IActionResult> SearchByEmail([FromBody]string searchValue)
         {
-            var usersFound = _context.Users.Where(u => u.Email == email).Select(u => new {
+            var usersFound = _context.Users.Where(u => u.Email == searchValue).Select(u => new {
                 username = u.Username,
                 email = u.Email,
                 profileStr = u.Profile != null && u.ProfileStr != null ? u.ProfileStr + "base64," + Convert.ToBase64String(u.Profile) : null,
@@ -60,9 +60,9 @@ namespace ComicsShowcase.Controllers
         }
 
         [HttpPost("search/instagram")]
-        public async Task<IActionResult> SearchByIG([FromBody] string igUsername)
+        public async Task<IActionResult> SearchByIG([FromBody] string searchValue)
         {
-            var usersFound = _context.Users.Where(u => u.instagramUsername == igUsername).Select(u => new
+            var usersFound = _context.Users.Where(u => u.instagramUsername == searchValue).Select(u => new
             {
                 username = u.Username,
                 email = u.Email,
@@ -79,9 +79,9 @@ namespace ComicsShowcase.Controllers
         }
 
         [HttpPost("search/reddit")]
-        public async Task<IActionResult> SearchByReddit([FromBody] string redditUsername)
+        public async Task<IActionResult> SearchByReddit([FromBody] string searchValue)
         {
-            var usersFound = _context.Users.Where(u => u.redditUsername == redditUsername).Select(u => new
+            var usersFound = _context.Users.Where(u => u.redditUsername == searchValue).Select(u => new
             {
                 username = u.Username,
                 email = u.Email,
