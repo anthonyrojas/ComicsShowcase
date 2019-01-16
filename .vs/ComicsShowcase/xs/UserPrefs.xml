@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{538524AC-0B3C-46E5-9D71-203BAB29BEDA}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Controllers/PublicController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Controllers/UsersController.cs">
     <Files>
       <File FileName="ComicsShowcase/Controllers/CollectiblesController.cs" Line="55" Column="138" />
       <File FileName="ComicsShowcase/Controllers/ComicsController.cs" Line="54" Column="120" />
