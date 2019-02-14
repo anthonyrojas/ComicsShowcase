@@ -33,16 +33,8 @@ namespace ComicsShowcase.Models
         public string Password { get; set; }
 
         [Required]
-        [DisplayName("birthMonth")]
-        public int BirthMonth { get; set; }
-
-        [Required]
         [DisplayName("birthDate")]
-        public int BirthDate { get; set; }
-
-        [Required]
-        [DisplayName("birthYear")]
-        public int BirthYear { get; set; }
+        public string BirthDate { get; set; }
 
         [DisplayName("profileStr")]
         public string ProfileStr { get; set; }

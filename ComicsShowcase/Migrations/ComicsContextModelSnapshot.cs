@@ -187,11 +187,8 @@ namespace ComicsShowcase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BirthDate");
-
-                    b.Property<int>("BirthMonth");
-
-                    b.Property<int>("BirthYear");
+                    b.Property<string>("BirthDate")
+                        .IsRequired();
 
                     b.Property<string>("Email")
                         .IsRequired();
