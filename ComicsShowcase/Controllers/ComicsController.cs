@@ -43,7 +43,7 @@ namespace ComicsShowcase.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetComic([FromBody]int id)
+        public async Task<IActionResult> GetComic([FromRoute]int id)
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             ComicBook comicFound = await _context.Comics.Include(c=> c.User).Include(c => c.Creators).FirstOrDefaultAsync(c => c.ID == id);
@@ -59,7 +59,7 @@ namespace ComicsShowcase.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteComic([FromBody] int id)
+        public async Task<IActionResult> DeleteComic([FromRoute] int id)
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             ComicBook comicFound = await _context.Comics.FirstOrDefaultAsync(c => c.ID == id && c.User.ID == uID);
