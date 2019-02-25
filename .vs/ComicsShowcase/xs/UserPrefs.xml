@@ -1,7 +1,10 @@
 ﻿<Properties StartupConfiguration="{538524AC-0B3C-46E5-9D71-203BAB29BEDA}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Controllers/UsersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Startup.cs">
     <Files>
       <File FileName="ComicsShowcase/Controllers/UsersController.cs" Line="130" Column="72" />
+      <File FileName="ComicsShowcase/Models/User.cs" Line="33" Column="45" />
+      <File FileName="ComicsShowcase/Properties/launchSettings.json" Line="1" Column="1" />
+      <File FileName="ComicsShowcase/Startup.cs" Line="68" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
