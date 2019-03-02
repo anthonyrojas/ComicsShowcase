@@ -88,7 +88,7 @@ namespace ComicsShowcase.Controllers
                 await _context.SaveChangesAsync();
                 return Ok(new {statusMessage = "Movie added!", movie = movieModel});
             }
-            return BadRequest(new {statusMessage = "Unable to add movie at this time."});
+            return BadRequest(new {statusMessage = "Unable to add movie at this time.", errors=results});
         }
 
         [HttpPut]
@@ -110,7 +110,7 @@ namespace ComicsShowcase.Controllers
                 await _context.SaveChangesAsync();
                 return Ok(new { statusMessage = "Movie updated!", movie = movieModel });
             }
-            return BadRequest(new { statusMessage = "Unable to update movie at this time." });
+            return BadRequest(new { statusMessage = "Unable to update movie at this time.", errors=results });
         }
     }
 }

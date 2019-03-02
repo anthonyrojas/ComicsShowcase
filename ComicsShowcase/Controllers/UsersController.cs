@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -138,6 +139,42 @@ namespace ComicsShowcase.Controllers
                 return Ok(new { user = userInfo, statusMessage = "User account information retrieved!" });
             }
             return BadRequest(new {statusMessage = "Unable to find your account information. Please log out and sign in again."});
+        }
+
+        //PUT api/users/account
+        [HttpPut("account")]
+        public async Task<IActionResult> UpdateAccount([FromBody] User userModel)
+        {
+            int userID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            User userInfo = await _context.Users.FirstOrDefaultAsync(u => u.ID == userID);
+            if(userModel.Password == null) 
+            {
+                userModel.Password = userInfo.Password; 
+            }
+            if (!string.IsNullOrEmpty(userModel.ProfileStr))
+            {
+                string[] imgData = userModel.ProfileStr.Split(new[] { "base64," }, StringSplitOptions.None);
+                userModel.ProfileStr = imgData[0];
+                userModel.Profile = Convert.FromBase64String(imgData[1]);
+            }
+
+            var validationContext = new ValidationContext(userModel, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+            if(Validator.TryValidateObject(userModel, validationContext, results, true))
+            {
+                //check if new username is already taken
+                int userCount = await _context.Users.Where(u => u.Username == userModel.Username && u.ID != userModel.ID
+                ).CountAsync();
+                if(userCount > 0)
+                {
+                    return BadRequest(new { statusMessage = "A user with that username already exists.", errors = results });
+                }
+                _context.Users.Update(userModel);
+                await _context.SaveChangesAsync();
+                userModel.Password = null;
+                return Ok(new { statusMessage = "User updated!", account = userModel })
+            }
+            return BadRequest(new { statusMessage="Unable to update your username.", errors=results });
         }
     }
 }
