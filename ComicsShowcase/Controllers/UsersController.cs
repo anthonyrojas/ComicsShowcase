@@ -13,6 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Cors;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -168,9 +169,11 @@ namespace ComicsShowcase.Controllers
                 {
                     return BadRequest(new { statusMessage = "A user with that username already exists.", errors = results });
                 }
+                _context.Entry(userInfo).State = EntityState.Detached;
                 _context.Users.Update(userModel);
                 await _context.SaveChangesAsync();
                 userModel.Password = null;
+                userModel.ProfileStr = userModel.ProfileStr + "base64," + Convert.ToBase64String(userModel.Profile);
                 return Ok(new { statusMessage = "User updated!", user = userModel });
             }
             return BadRequest(new { statusMessage="Unable to update your username.", errors=results });

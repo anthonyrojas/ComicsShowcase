@@ -15,6 +15,7 @@ using ComicsShowcase.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace ComicsShowcase
 {
@@ -34,11 +35,19 @@ namespace ComicsShowcase
             {
                 options.AddPolicy("EnableCORS", builder =>
                 {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .Build();
                 });
             });
             services.AddDbContext<ComicsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("EnableCORS"));
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters{
                         ValidateIssuer = true,

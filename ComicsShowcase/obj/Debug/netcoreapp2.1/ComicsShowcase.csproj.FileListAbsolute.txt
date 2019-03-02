@@ -11,4 +11,3 @@
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.RazorTargetAssemblyInfo.cache
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.dll
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.pdb
-/Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcase/obj/Debug/netcoreapp2.1/ComicsShowcase.csprojAssemblyReference.cache
