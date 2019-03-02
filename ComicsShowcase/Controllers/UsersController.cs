@@ -147,7 +147,7 @@ namespace ComicsShowcase.Controllers
         {
             int userID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             User userInfo = await _context.Users.FirstOrDefaultAsync(u => u.ID == userID);
-            if(userModel.Password == null) 
+            if(string.IsNullOrWhiteSpace(userModel.Password) || string.IsNullOrEmpty(userModel.Password)) 
             {
                 userModel.Password = userInfo.Password; 
             }
@@ -163,8 +163,7 @@ namespace ComicsShowcase.Controllers
             if(Validator.TryValidateObject(userModel, validationContext, results, true))
             {
                 //check if new username is already taken
-                int userCount = await _context.Users.Where(u => u.Username == userModel.Username && u.ID != userModel.ID
-                ).CountAsync();
+                int userCount = await _context.Users.Where(u => u.Username == userModel.Username && u.ID != userModel.ID).CountAsync();
                 if(userCount > 0)
                 {
                     return BadRequest(new { statusMessage = "A user with that username already exists.", errors = results });
@@ -172,7 +171,7 @@ namespace ComicsShowcase.Controllers
                 _context.Users.Update(userModel);
                 await _context.SaveChangesAsync();
                 userModel.Password = null;
-                return Ok(new { statusMessage = "User updated!", account = userModel })
+                return Ok(new { statusMessage = "User updated!", user = userModel });
             }
             return BadRequest(new { statusMessage="Unable to update your username.", errors=results });
         }
