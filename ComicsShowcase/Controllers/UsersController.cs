@@ -169,6 +169,7 @@ namespace ComicsShowcase.Controllers
                 {
                     return BadRequest(new { statusMessage = "A user with that username already exists.", errors = results });
                 }
+                userModel.Password = BCrypt.Net.BCrypt.HashPassword(userModel.Password, SaltRevision.Revision2B);
                 _context.Entry(userInfo).State = EntityState.Detached;
                 _context.Users.Update(userModel);
                 await _context.SaveChangesAsync();
