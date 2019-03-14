@@ -41,7 +41,6 @@ namespace ComicsShowcase.Controllers
             }
             return BadRequest(new { statusMessage = "No comic books found." });
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetComic([FromRoute]int id)
         {

@@ -106,14 +106,12 @@ namespace ComicsShowcase.Controllers
                 int comicsCount = _context.Comics.Where(u => u.User.ID == userFound.ID).Count();
                 int novelsCount = _context.GraphicNovels.Where(g => g.User.ID == userFound.ID).Count();
                 int collectiblesCount = _context.Collectibles.Where(c => c.User.ID == userFound.ID).Count();
-                int moviesCount = _context.Movies.Where(m => m.User.ID == userFound.ID).Count();
                 return Ok(new
                 {
                     statusMessage = "User information found!",
                     user = userFound,
                     comicsCount,
                     novelsCount,
-                    moviesCount,
                     collectiblesCount
                 });
             }
@@ -128,7 +126,6 @@ namespace ComicsShowcase.Controllers
                 List<ComicBook> comicsFound = await _context.Comics.Where(u => u.User.ID == userFound.ID).Include(c => c.Creators).Include(c => c.Conidition).ToListAsync();
                 List<GraphicNovel> novelsFound = await _context.GraphicNovels.Where(g => g.User.ID == userFound.ID).Include(g => g.Creators).Include(g => g.BookCondition).ToListAsync();
                 List<Collectible> collectiblesFound = await _context.Collectibles.Where(c => c.User.ID == userFound.ID).ToListAsync();
-                List<Movie> moviesFound = await _context.Movies.Where(m => m.User.ID == userFound.ID).Include(m => m.DiskType).ToListAsync();
                 return Ok(new
                 {
                     statusMessage = "User information found!",
@@ -136,11 +133,9 @@ namespace ComicsShowcase.Controllers
                     comics = comicsFound,
                     graphicNovels = novelsFound,
                     collectibles = collectiblesFound,
-                    movies = moviesFound,
                     comicsCount = comicsFound.Count(),
                     graphicNovelCount = novelsFound.Count(),
                     collectiblesCount = collectiblesFound.Count(),
-                    moviesCount = moviesFound.Count()
 
                 });
             }
