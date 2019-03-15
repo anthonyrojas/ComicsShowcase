@@ -24,11 +24,10 @@ namespace ComicsShowcase.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCollectibles()
+        [HttpGet("user/{userID}")]
+        public async Task<IActionResult> GetCollectibles([FromRoute]int userID)
         {
-            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var collectibles = await _context.Collectibles.Where(c => c.User.ID == uID).ToListAsync();
+            var collectibles = await _context.Collectibles.Where(c => c.User.ID == userID).ToListAsync();
             if (collectibles.Any() && collectibles != null)
             {
                 collectibles.ForEach(c => { 
@@ -46,8 +45,9 @@ namespace ComicsShowcase.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCollectible(int id)
         {
-            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            Collectible collectibleFound = await _context.Collectibles.Include(c => c.User).FirstOrDefaultAsync(c => c.ID == id && c.User.ID == uID);
+            Collectible collectibleFound = await _context.Collectibles.Include(c => c.User).FirstOrDefaultAsync(c => c.ID == id);
+            collectibleFound.User.BirthDate = null;
+            collectibleFound.User.Password = null;
             if(collectibleFound != null)
             {
                 if(collectibleFound.ImageStr != null && collectibleFound.ImageData != null)

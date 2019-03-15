@@ -23,11 +23,10 @@ namespace ComicsShowcase.Controllers
         {
             _context = context;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetGraphicNovels()
+        [HttpGet("user/{userID}")]
+        public async Task<IActionResult> GetGraphicNovels([FromRoute]int userID)
         {
-            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            List<GraphicNovel> graphicNovelsFound = await _context.GraphicNovels.Include(g => g.Creators).Where(g => g.User.ID == uID).ToListAsync();
+            List<GraphicNovel> graphicNovelsFound = await _context.GraphicNovels.Include(u => u.User.Username).Include(g => g.Creators).Where(g => g.User.ID == userID).ToListAsync();
             if(graphicNovelsFound.Any()){
                 graphicNovelsFound.ForEach(g => {
                     if(g.ImageStr != null && g.ImageData != null)
@@ -43,8 +42,7 @@ namespace ComicsShowcase.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGraphicNovel(int id)
         {
-            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            GraphicNovel novelFound = await _context.GraphicNovels.Include(g => g.Creators).Include(g => g.User).FirstOrDefaultAsync(g => g.User.ID == uID && g.ID == id);
+            GraphicNovel novelFound = await _context.GraphicNovels.Include(g => g.Creators).Include(g => g.User).FirstOrDefaultAsync(g => g.ID == id);
             if(novelFound != null)
             {
                 if(novelFound.ImageStr != null && novelFound.ImageData != null)

@@ -24,11 +24,10 @@ namespace ComicsShowcase.Controllers
         {
             _context = context;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetComics()
+        [HttpGet("user/{userID}")]
+        public async Task<IActionResult> GetComics([FromRoute] int userID)
         {
-            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            List<ComicBook> comicsFound = await _context.Comics.Include(c => c.User).Include(c => c.Creators).Where(c => c.User.ID == uID).ToListAsync();
+            List<ComicBook> comicsFound = await _context.Comics.Include(c => c.User.Username).Include(c => c.Creators).Where(c => c.User.ID == userID).ToListAsync();
             if (comicsFound != null && comicsFound.Any())
             {
                 comicsFound.ForEach(c => {
@@ -44,7 +43,6 @@ namespace ComicsShowcase.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetComic([FromRoute]int id)
         {
-            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             ComicBook comicFound = await _context.Comics.Include(c=> c.User).Include(c => c.Creators).FirstOrDefaultAsync(c => c.ID == id);
             if (comicFound != null)
             {
