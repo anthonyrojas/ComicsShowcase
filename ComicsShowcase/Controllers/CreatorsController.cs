@@ -52,21 +52,33 @@ namespace ComicsShowcase.Controllers
             }
             return BadRequest(new {statusMessage = "Unable to retrieve creator information."});
         }
-
         [HttpGet]
-        public async Task<IActionResult> GetCreators()
+        public async Task <IActionResult> GetUserCreators()
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             List<Creator> creatorsFound = await _context.Creators.Where(c => c.User.ID == uID).ToListAsync();
-            if(creatorsFound != null && creatorsFound.Count() > 0)
+            if (creatorsFound != null && creatorsFound.Any())
+            {
+                return Ok(new { statusMessage = "Creators found.", creators = creatorsFound });
+            }
+            else if (!creatorsFound.Any())
+            {
+                return BadRequest(new { statusMessage = "No creators found for this user." });
+            }
+            return BadRequest(new { statusMessage = "Unable to retrieve creators." });
+        }
+        [HttpGet("user/{userID}")]
+        public async Task<IActionResult> GetCreators([FromRoute] int userID)
+        {
+            List<Creator> creatorsFound = await _context.Creators.Where(c => c.User.ID == userID).ToListAsync();
+            if(creatorsFound != null && creatorsFound.Any())
             {
                 return Ok(new {statusMessage = "Creators found.", creators = creatorsFound});
-            }else if(creatorsFound.Count()== 0){
-                return BadRequest(new { statusMessage = "No creators found." });
+            }else if(!creatorsFound.Any()){
+                return BadRequest(new { statusMessage = "No creators found for this user."});
             }
             return BadRequest(new {statusMessage = "Unable to retrieve creators."});
         }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCreator(int id)
         {

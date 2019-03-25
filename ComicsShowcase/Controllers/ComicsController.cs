@@ -24,10 +24,39 @@ namespace ComicsShowcase.Controllers
         {
             _context = context;
         }
-        [HttpGet("user/{userID}")]
-        public async Task<IActionResult> GetComics([FromRoute] int userID)
+        [HttpGet]
+        public async Task<IActionResult> GetUserComics()
         {
-            List<ComicBook> comicsFound = await _context.Comics.Include(c => c.User.Username).Include(c => c.Creators).Where(c => c.User.ID == userID).ToListAsync();
+            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            List<ComicBook> comicsFound = await _context.Comics
+                .Where(c => c.User.ID == uID)
+                .ToListAsync();
+            if (comicsFound != null && comicsFound.Any())
+            {
+                comicsFound.ForEach(c => { 
+                    if(c.ImageStr != null && c.ImageData != null)
+                    {
+                        c.ImageStr = c.ImageStr + "base64," + Convert.ToBase64String(c.ImageData);
+                    }
+                });
+                return Ok(new { 
+                    statusMessage = "Comic books retrieved.",
+                    comics = comicsFound
+                });
+            }
+            return BadRequest(new { statusMessage = "No comic books found." });
+        }
+        [HttpGet("user/{userID}")]
+        public async Task<IActionResult> GetComics([FromRoute] int userID, [FromQuery] int limit, [FromQuery] int skip)
+        {
+            List<ComicBook> comicsFound = await _context.Comics
+                .Include(c => c.User.ID)
+                .Include(c => c.User.Username)
+                .Include(c => c.Creators)
+                .Where(c => c.User.ID == userID)
+                .Skip(skip)
+                .Take(limit)
+                .ToListAsync();
             if (comicsFound != null && comicsFound.Any())
             {
                 comicsFound.ForEach(c => {
@@ -43,7 +72,11 @@ namespace ComicsShowcase.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetComic([FromRoute]int id)
         {
-            ComicBook comicFound = await _context.Comics.Include(c=> c.User).Include(c => c.Creators).FirstOrDefaultAsync(c => c.ID == id);
+            ComicBook comicFound = await _context.Comics
+                .Include(c=> c.User.ID)
+                .Include(c => c.User.Username)
+                .Include(c => c.Creators)
+                .FirstOrDefaultAsync(c => c.ID == id);
             if (comicFound != null)
             {
                 if(comicFound.ImageStr != null && comicFound.ImageData != null)
