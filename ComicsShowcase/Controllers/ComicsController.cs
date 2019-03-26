@@ -15,6 +15,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ComicsShowcase.Controllers
 {
+    struct ComicConditionPair
+    {
+        public ComicCondition enumValue;
+        public string name;
+    }
     [Authorize(Roles = "User")]
     [Route("api/[controller]")]
     public class ComicsController : Controller
@@ -23,6 +28,23 @@ namespace ComicsShowcase.Controllers
         public ComicsController(ComicsContext context)
         {
             _context = context;
+        }
+        [HttpGet("comics-conditions")]
+        public async Task<IActionResult> GetComicConditions()
+        {
+            var enumValues = Enum.GetValues(typeof(ComicCondition));
+            List<ComicConditionPair> resList = new List<ComicConditionPair>();
+            foreach(ComicCondition c in enumValues)
+            {
+                resList.Add(new ComicConditionPair
+                {
+                    enumValue = c,
+                    name = Enum.GetName(typeof(ComicCondition), c)
+                });
+            }
+            return Ok(new { 
+                comicsConditions = resList.ToArray()
+            });
         }
         [HttpGet]
         public async Task<IActionResult> GetUserComics()
