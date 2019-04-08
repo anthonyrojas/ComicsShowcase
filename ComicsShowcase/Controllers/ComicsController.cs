@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using ComicsShowcase.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,6 +20,11 @@ namespace ComicsShowcase.Controllers
     {
         public ComicCondition enumValue;
         public string name;
+    }
+    struct PublisherStruct
+    {
+        public string name;
+        public int enumValue;
     }
     [Authorize(Roles = "User")]
     [Route("api/[controller]")]
@@ -42,7 +48,7 @@ namespace ComicsShowcase.Controllers
                     name = Enum.GetName(typeof(ComicCondition), c)
                 });
             }
-            return Ok(new { 
+            return Ok(new {
                 comicsConditions = resList.ToArray()
             });
         }
@@ -74,9 +80,12 @@ namespace ComicsShowcase.Controllers
             List<ComicBook> comicsFound = await _context.Comics
                 .Include(c => c.User.ID)
                 .Include(c => c.User.Username)
-                .Include(c => c.Creators)
+                .Include(c => new PublisherStruct { 
+                    name=Enum.GetName(typeof(Publisher), c.Publisher),
+                    enumValue = (int)c.Publisher
+                })
                 .Where(c => c.User.ID == userID)
-                .Skip(skip)
+                .Skip(skip-1)
                 .Take(limit)
                 .ToListAsync();
             if (comicsFound != null && comicsFound.Any())
@@ -87,7 +96,7 @@ namespace ComicsShowcase.Controllers
                         c.ImageStr = c.ImageStr + "base64," + Convert.ToBase64String(c.ImageData);
                     }
                 });
-                return Ok(new { statusMessage = "Comic books retrieved.", comics = comicsFound });
+                return Ok(new { statusMessage = "Comic books retrieved.", comics = comicsFound, comicsCount = await _context.Comics.CountAsync() });
             }
             return BadRequest(new { statusMessage = "No comic books found." });
         }
