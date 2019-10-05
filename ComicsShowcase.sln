@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicsShowcase", "ComicsShowcase\ComicsShowcase.csproj", "{538524AC-0B3C-46E5-9D71-203BAB29BEDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicsShowcaseV3", "ComicsShowcaseV3\ComicsShowcaseV3.csproj", "{C7943666-0C55-4F31-9792-5D4B3C827FDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,9 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{538524AC-0B3C-46E5-9D71-203BAB29BEDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{538524AC-0B3C-46E5-9D71-203BAB29BEDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{538524AC-0B3C-46E5-9D71-203BAB29BEDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{538524AC-0B3C-46E5-9D71-203BAB29BEDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7943666-0C55-4F31-9792-5D4B3C827FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7943666-0C55-4F31-9792-5D4B3C827FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7943666-0C55-4F31-9792-5D4B3C827FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7943666-0C55-4F31-9792-5D4B3C827FDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.VersionControlPolicy = $2
 	EndGlobalSection
 EndGlobal

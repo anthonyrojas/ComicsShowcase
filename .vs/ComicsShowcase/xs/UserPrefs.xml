@@ -1,21 +1,38 @@
-﻿<Properties StartupConfiguration="{538524AC-0B3C-46E5-9D71-203BAB29BEDA}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcase/Controllers/ComicsController.cs">
+﻿<Properties StartupConfiguration="{C7943666-0C55-4F31-9792-5D4B3C827FDB}|Default">
+  <MonoDevelop.Ide.ItemProperties.ComicsShowcaseV3 PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcaseV3/EnumModels/PublisherStruct.cs">
     <Files>
-      <File FileName="ComicsShowcase/Controllers/UsersController.cs" Line="172" Column="114" />
-      <File FileName="ComicsShowcase/Controllers/PublicController.cs" Line="26" Column="38" />
-      <File FileName="ComicsShowcase/Controllers/CollectiblesController.cs" Line="38" Column="22" />
-      <File FileName="ComicsShowcase/Models/ComicsContext.cs" Line="23" Column="181" />
-      <File FileName="ComicsShowcase/Models/ComicBook.cs" Line="1" Column="1" />
-      <File FileName="ComicsShowcase/Controllers/ComicsController.cs" Line="78" Column="43" />
-      <File FileName="ComicsShowcase/Models/User.cs" Line="11" Column="14" />
-      <File FileName="ComicsShowcase/Controllers/GraphicNovelsController.cs" Line="29" Column="111" />
-      <File FileName="ComicsShowcase/Controllers/CreatorsController.cs" Line="56" Column="43" />
-      <File FileName="ComicsShowcase/Models/GraphicNovel.cs" Line="1" Column="1" />
+      <File FileName="ComicsShowcaseV3/Startup.cs" Line="50" Column="35" />
+      <File FileName="ComicsShowcaseV3/Models/User.cs" Line="1" Column="1" />
+      <File FileName="ComicsShowcaseV3/Program.cs" Line="1" Column="1" />
+      <File FileName="ComicsShowcaseV3/appsettings.Development.json" Line="14" Column="50" />
+      <File FileName="ComicsShowcaseV3/ComicsShowcaseV3.csproj" Line="29" Column="1" />
+      <File FileName="ComicsShowcaseV3/Models/ComicBook.cs" Line="53" Column="15" />
+      <File FileName="ComicsShowcaseV3/EnumModels/ComicConditionPair.cs" Line="14" Column="2" />
+      <File FileName="ComicsShowcaseV3/EnumModels/PublisherStruct.cs" Line="4" Column="31" />
+      <File FileName="ComicsShowcaseV3/Controllers/ComicsController.cs" Line="45" Column="34" NotebookId="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ComicsShowcase" expanded="True">
+            <Node name="ComicsShowcaseV3" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="EnumModels" expanded="True">
+                <Node name="PublisherStruct.cs" selected="True" />
+              </Node>
+              <Node name="Properties" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.ComicsShowcase PreferredExecutionTarget="MonoDevelop.Default" />
+  <Debugger.DebugSourceFolders />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
