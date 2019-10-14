@@ -5,14 +5,14 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ComicsShowcase.Models;
+using ComicsShowcaseV3.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using ComicsShowcaseV3.EnumModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace ComicsShowcase.Controllers
+namespace ComicsShowcaseV3.Controllers
 {
     struct PublisherStruct
     {
@@ -76,9 +76,9 @@ namespace ComicsShowcase.Controllers
             List<ComicBook> comicsFound = await _context.Comics
                 .Include(c => c.User.ID)
                 .Include(c => c.User.Username)
-                .Include(c => new PublisherStruct { 
-                    name=Enum.GetName(typeof(Publisher), c.Publisher),
-                    enumValue = (int)c.Publisher
+                .Include(c => new PublisherPair { 
+                    Name=Enum.GetName(typeof(Publisher), c.Publisher),
+                    EnumValue = c.Publisher
                 })
                 .Where(c => c.User.ID == userID)
                 .Skip(skip-1)

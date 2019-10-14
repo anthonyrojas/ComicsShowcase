@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ComicsShowcase.Controllers
+namespace ComicsShowcaseV3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

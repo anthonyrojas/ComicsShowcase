@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-namespace ComicsShowcase.Models
+namespace ComicsShowcaseV3.Models
 {
     public class Collectible
     {

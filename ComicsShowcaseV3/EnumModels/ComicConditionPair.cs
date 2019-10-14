@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using ComicsShowcase.Models;
+using ComicsShowcaseV3.Models;
 
 namespace ComicsShowcaseV3.EnumModels
 {

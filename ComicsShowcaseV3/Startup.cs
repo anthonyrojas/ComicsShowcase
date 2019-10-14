@@ -1,5 +1,5 @@
 using System;
-using ComicsShowcase.Models;
+using ComicsShowcaseV3.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -47,10 +47,11 @@ namespace ComicsShowcaseV3
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration.GetValue<string>("TokenIssuer"),
-                    ValidAudience = Configuration.GetValue<string>("TokenAudience"),
+                    ValidIssuer = Configuration["TokenIssuer"],
+                    ValidAudience = Configuration["TokenAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("SigningKeyPhrase")))
                 });
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,4 @@
-﻿namespace ComicsShowcase.Models
+﻿namespace ComicsShowcaseV3.Models
 {
     public enum Publisher
     {

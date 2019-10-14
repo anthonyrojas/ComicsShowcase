@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ComicsShowcase.Models;
+using ComicsShowcaseV3.Models;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace ComicsShowcase.Controllers
+namespace ComicsShowcaseV3.Controllers
 {
     // api/collectibles
     [Authorize(Roles = "User")]
@@ -22,6 +22,24 @@ namespace ComicsShowcase.Controllers
         public CollectiblesController(ComicsContext context)
         {
             _context = context;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAccountCollectibles()
+        {
+            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            List<Collectible> collectibles = await _context.Collectibles.Where(u => u.User.ID == uID).ToListAsync();
+            if(collectibles.Any() && collectibles != null)
+            {
+                collectibles.ForEach(c =>
+                {
+                    if(c.ImageData != null && c.ImageStr != null)
+                    {
+                        c.ImageStr = c.ImageStr + "base64," + Convert.ToBase64String(c.ImageData);
+                    }
+                });
+            }
+            return Ok(new { statusMessage = "Collectibles found!", collectibles = collectibles });
         }
 
         [HttpGet("user/{userID}")]

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using ComicsShowcase.Models;
+using ComicsShowcaseV3.Models;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
 using Microsoft.AspNetCore.Authorization;
@@ -14,10 +14,12 @@ using System.Text;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.Extensions.Configuration;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace ComicsShowcase.Controllers
+namespace ComicsShowcaseV3.Controllers
 {
     [Authorize(Roles = "User")]
     [Route("api/[controller]")]
@@ -25,9 +27,13 @@ namespace ComicsShowcase.Controllers
     {
         public readonly static string SECRET = "you-know-nothing-jon-snow";
         private readonly ComicsContext _context;
-        public UsersController(ComicsContext context)
+
+        public IConfiguration Configuration { get; }
+
+        public UsersController(ComicsContext context, IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
         // POST api/users/register
         [AllowAnonymous]
@@ -101,8 +107,8 @@ namespace ComicsShowcase.Controllers
                             new Claim(ClaimTypes.Role, "User")
                         };
                         var tokenOptions = new JwtSecurityToken(
-                            issuer: "https://localhost:5001",
-                            audience: "https://localhost:5001",
+                            issuer: Configuration["TokenIssuer"],
+                            audience: Configuration["TokenAudience"],
                             claims: claimsList,
                             expires: DateTime.Now.AddYears(1),
                             signingCredentials: signInCred

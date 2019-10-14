@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using ComicsShowcase.Models;
+using ComicsShowcaseV3.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace ComicsShowcase.Controllers
+namespace ComicsShowcaseV3.Controllers
 {
     // api/public
     // allows users to search for public information of other users

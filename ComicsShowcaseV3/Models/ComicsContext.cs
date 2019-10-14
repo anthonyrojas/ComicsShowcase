@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-namespace ComicsShowcase.Models
+namespace ComicsShowcaseV3.Models
 {
     public class ComicsContext : DbContext
     {

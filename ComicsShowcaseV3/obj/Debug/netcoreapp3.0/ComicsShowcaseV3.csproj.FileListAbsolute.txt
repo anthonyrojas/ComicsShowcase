@@ -42,3 +42,5 @@
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcaseV3/obj/Debug/netcoreapp3.0/ComicsShowcaseV3.csproj.CopyComplete
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcaseV3/obj/Debug/netcoreapp3.0/ComicsShowcaseV3.dll
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcaseV3/obj/Debug/netcoreapp3.0/ComicsShowcaseV3.pdb
+/Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcaseV3/bin/Debug/netcoreapp3.0/Microsoft.EntityFrameworkCore.Design.dll
+/Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcaseV3/obj/Debug/netcoreapp3.0/ComicsShowcaseV3.csprojAssemblyReference.cache

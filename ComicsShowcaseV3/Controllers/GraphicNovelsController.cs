@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ComicsShowcase.Models;
+using ComicsShowcaseV3.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace ComicsShowcase.Controllers
+namespace ComicsShowcaseV3.Controllers
 {
     // api/graphicnovels
     [Authorize(Roles = "User")]
@@ -23,6 +23,24 @@ namespace ComicsShowcase.Controllers
         {
             _context = context;
         }
+
+        public async Task<IActionResult> GetAccountGraphicNovels()
+        {
+            int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            List<GraphicNovel> graphicNovels = await _context.GraphicNovels.Include(u => u.User.Username).Include(c => c.Creators).Where(g => g.User.ID == uID).ToListAsync();
+            if (graphicNovels.Any())
+            {
+                graphicNovels.ForEach(g =>
+                {
+                    if(g.ImageStr != null && g.ImageData != null)
+                    {
+                        g.ImageStr = g.ImageStr + "base64," + Convert.ToBase64String(g.ImageData);
+                    }
+                });
+            }
+            return Ok(new { statusMessage = "Graphic novels found!", graphicNovels = graphicNovels });
+        }
+
         [HttpGet("user/{userID}")]
         public async Task<IActionResult> GetGraphicNovels([FromRoute]int userID)
         {
