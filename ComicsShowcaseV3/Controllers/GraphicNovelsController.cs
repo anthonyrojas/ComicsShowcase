@@ -23,11 +23,11 @@ namespace ComicsShowcaseV3.Controllers
         {
             _context = context;
         }
-
+        [HttpGet]
         public async Task<IActionResult> GetAccountGraphicNovels()
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            List<GraphicNovel> graphicNovels = await _context.GraphicNovels.Include(u => u.User.Username).Include(c => c.Creators).Where(g => g.User.ID == uID).ToListAsync();
+            List<GraphicNovel> graphicNovels = await _context.GraphicNovels.Include(c => c.Creators).Where(g => g.User.ID == uID).ToListAsync();
             if (graphicNovels.Any())
             {
                 graphicNovels.ForEach(g =>
@@ -44,7 +44,7 @@ namespace ComicsShowcaseV3.Controllers
         [HttpGet("user/{userID}")]
         public async Task<IActionResult> GetGraphicNovels([FromRoute]int userID)
         {
-            List<GraphicNovel> graphicNovelsFound = await _context.GraphicNovels.Include(u => u.User.Username).Include(g => g.Creators).Where(g => g.User.ID == userID).ToListAsync();
+            List<GraphicNovel> graphicNovelsFound = await _context.GraphicNovels.Include(u => u.User).Include(g => g.Creators).Where(g => g.User.ID == userID).ToListAsync();
             if(graphicNovelsFound.Any()){
                 graphicNovelsFound.ForEach(g => {
                     if(g.ImageStr != null && g.ImageData != null)

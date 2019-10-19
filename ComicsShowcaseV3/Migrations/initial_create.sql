@@ -72,7 +72,7 @@ CREATE TABLE [Comics] (
     [ImageStr] nvarchar(max) NULL,
     [ImageData] varbinary(max) NULL,
     [Publisher] nvarchar(max) NOT NULL,
-    [Conidition] nvarchar(max) NOT NULL,
+    [Condition] nvarchar(max) NOT NULL,
     [UserID] int NOT NULL,
     CONSTRAINT [PK_Comics] PRIMARY KEY ([ID]),
     CONSTRAINT [FK_Comics_Users_UserID] FOREIGN KEY ([UserID]) REFERENCES [Users] ([ID]) ON DELETE CASCADE

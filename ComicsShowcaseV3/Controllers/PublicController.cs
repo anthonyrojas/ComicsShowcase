@@ -123,7 +123,7 @@ namespace ComicsShowcaseV3.Controllers
             if (userFound != null)
             {
                 userFound.Password = null;
-                List<ComicBook> comicsFound = await _context.Comics.Where(u => u.User.ID == userFound.ID).Include(c => c.Creators).Include(c => c.Conidition).ToListAsync();
+                List<ComicBook> comicsFound = await _context.Comics.Where(u => u.User.ID == userFound.ID).Include(c => c.Creators).Include(c => c.Condition).ToListAsync();
                 List<GraphicNovel> novelsFound = await _context.GraphicNovels.Where(g => g.User.ID == userFound.ID).Include(g => g.Creators).Include(g => g.BookCondition).ToListAsync();
                 List<Collectible> collectiblesFound = await _context.Collectibles.Where(c => c.User.ID == userFound.ID).ToListAsync();
                 return Ok(new

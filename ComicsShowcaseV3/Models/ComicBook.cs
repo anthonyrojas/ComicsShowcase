@@ -34,7 +34,7 @@ namespace ComicsShowcaseV3.Models
 
         [Required]
         [DisplayName("condition")]
-        public ComicCondition Conidition { get; set; }
+        public ComicCondition Condition { get; set; }
 
         [Required]
         [DisplayName("user")]

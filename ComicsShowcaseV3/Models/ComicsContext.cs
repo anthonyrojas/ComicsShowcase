@@ -13,7 +13,7 @@ namespace ComicsShowcaseV3.Models
             //modelBuilder.Entity<Creator>().Property(x => x.Role).HasDefaultValue(Role.Writer);
             modelBuilder
                 .Entity<ComicBook>()
-                .Property(e => e.Conidition)
+                .Property(e => e.Condition)
                 .HasConversion(
                 v => v.ToString(),
                     v => (ComicCondition)Enum.Parse(typeof(ComicCondition), v));

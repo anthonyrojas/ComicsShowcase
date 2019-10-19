@@ -1,18 +1,27 @@
 ﻿<Properties StartupConfiguration="{C7943666-0C55-4F31-9792-5D4B3C827FDB}|Default">
   <MonoDevelop.Ide.ItemProperties.ComicsShowcaseV3 PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcaseV3/Models/Collectible.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ComicsShowcaseV3/Controllers/PublicController.cs">
     <Files>
       <File FileName="ComicsShowcaseV3/Models/Collectible.cs" Line="1" Column="1" />
       <File FileName="ComicsShowcaseV3/Controllers/CollectiblesController.cs" />
+      <File FileName="ComicsShowcaseV3/Controllers/UsersController.cs" />
+      <File FileName="ComicsShowcaseV3/Controllers/GraphicNovelsController.cs" Line="56" Column="14" />
+      <File FileName="ComicsShowcaseV3/Controllers/ComicsController.cs" Line="135" Column="10" />
+      <File FileName="ComicsShowcaseV3/Controllers/PublicController.cs" Line="116" Column="20" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ComicsShowcase" expanded="True">
             <Node name="ComicsShowcaseV3" expanded="True">
-              <Node name="Models" expanded="True">
-                <Node name="Collectible.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="PublicController.cs" selected="True" />
               </Node>
+              <Node name="EnumModels" expanded="True" />
+              <Node name="Migrations" expanded="True">
+                <Node name="20191007050414_initial_create.cs" expanded="True" />
+              </Node>
+              <Node name="Models" expanded="True" />
             </Node>
           </Node>
         </State>

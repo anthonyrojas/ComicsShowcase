@@ -68,7 +68,7 @@ namespace ComicsShowcaseV3.Migrations
                     ImageStr = table.Column<string>(nullable: true),
                     ImageData = table.Column<byte[]>(nullable: true),
                     Publisher = table.Column<string>(nullable: false),
-                    Conidition = table.Column<string>(nullable: false),
+                    Condition = table.Column<string>(nullable: false),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
