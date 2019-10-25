@@ -51,17 +51,33 @@ namespace ComicsShowcaseV3.Controllers
         public async Task<IActionResult> GetUserComics()
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            List<ComicBook> comicsFound = await _context.Comics
+            var comicsFound = await _context.Comics
+                .Include(c => new PublisherPair
+                {
+                    Name = Enum.GetName(typeof(Publisher), c.Publisher),
+                    Value = c.Publisher
+                })
                 .Where(c => c.User.ID == uID)
+                .Select(c => new {
+                    c.ID,
+                    c.Title,
+                    c.Description,
+                    c.FiveDigitId,
+                    c.UPC,
+                    c.Publisher,
+                    c.Creators,
+                    c.Condition
+                })
                 .ToListAsync();
             if (comicsFound != null && comicsFound.Any())
             {
-                comicsFound.ForEach(c => { 
-                    if(c.ImageStr != null && c.ImageData != null)
-                    {
-                        c.ImageStr = c.ImageStr + "base64," + Convert.ToBase64String(c.ImageData);
-                    }
-                });
+                //comicsFound.ForEach(c =>
+                //{
+                //    if (c.ImageStr != null && c.ImageData != null)
+                //    {
+                //        c.ImageStr = c.ImageStr + "base64," + Convert.ToBase64String(c.ImageData);
+                //    }
+                //});
                 return Ok(new { 
                     statusMessage = "Comic books retrieved.",
                     comics = comicsFound
@@ -78,7 +94,7 @@ namespace ComicsShowcaseV3.Controllers
                 .Include(c => c.User.Username)
                 .Include(c => new PublisherPair { 
                     Name=Enum.GetName(typeof(Publisher), c.Publisher),
-                    EnumValue = c.Publisher
+                    Value = c.Publisher
                 })
                 .Where(c => c.User.ID == userID)
                 .Skip(skip-1)

@@ -43,4 +43,3 @@
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcaseV3/obj/Release/netcoreapp3.0/ComicsShowcaseV3.csproj.CopyComplete
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcaseV3/obj/Release/netcoreapp3.0/ComicsShowcaseV3.dll
 /Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcaseV3/obj/Release/netcoreapp3.0/ComicsShowcaseV3.pdb
-/Users/anthonyrojas/Projects/ComicsShowcase/ComicsShowcaseV3/obj/Release/netcoreapp3.0/ComicsShowcaseV3.csprojAssemblyReference.cache

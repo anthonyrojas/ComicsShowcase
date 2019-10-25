@@ -27,16 +27,29 @@ namespace ComicsShowcaseV3.Controllers
         public async Task<IActionResult> GetAccountGraphicNovels()
         {
             int uID = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            List<GraphicNovel> graphicNovels = await _context.GraphicNovels.Include(c => c.Creators).Where(g => g.User.ID == uID).ToListAsync();
+            var graphicNovels = await _context.GraphicNovels
+                .Include(c => c.Creators)
+                .Where(g => g.User.ID == uID)
+                .Select(g => new
+                 {
+                     g.ID,
+                     g.Title,
+                     g.Publisher,
+                     g.ISBN,
+                     g.GraphicNovelType,
+                     g.BookCondition,
+                     g.Creators
+                 })
+                .ToListAsync();
             if (graphicNovels.Any())
             {
-                graphicNovels.ForEach(g =>
-                {
-                    if(g.ImageStr != null && g.ImageData != null)
-                    {
-                        g.ImageStr = g.ImageStr + "base64," + Convert.ToBase64String(g.ImageData);
-                    }
-                });
+                //graphicNovels.ForEach(g =>
+                //{
+                //    if(g.ImageStr != null && g.ImageData != null)
+                //    {
+                //        g.ImageStr = g.ImageStr + "base64," + Convert.ToBase64String(g.ImageData);
+                //    }
+                //});
             }
             return Ok(new { statusMessage = "Graphic novels found!", graphicNovels = graphicNovels });
         }
@@ -44,14 +57,29 @@ namespace ComicsShowcaseV3.Controllers
         [HttpGet("user/{userID}")]
         public async Task<IActionResult> GetGraphicNovels([FromRoute]int userID)
         {
-            List<GraphicNovel> graphicNovelsFound = await _context.GraphicNovels.Include(u => u.User).Include(g => g.Creators).Where(g => g.User.ID == userID).ToListAsync();
+            var graphicNovelsFound = await _context.GraphicNovels
+                .Include(u => u.User)
+                .Include(g => g.Creators)
+                .Where(g => g.User.ID == userID)
+                .Select(g => new
+                {
+                    g.ID,
+                    g.Title,
+                    g.Publisher,
+                    g.ISBN,
+                    g.GraphicNovelType,
+                    g.BookCondition,
+                    g.Creators,
+                    g.User
+                })
+                .ToListAsync();
             if(graphicNovelsFound.Any()){
-                graphicNovelsFound.ForEach(g => {
-                    if(g.ImageStr != null && g.ImageData != null)
-                    {
-                        g.ImageStr = g.ImageStr + "base64," + Convert.ToBase64String(g.ImageData);
-                    }
-                });
+                //graphicNovelsFound.ForEach(g => {
+                //    if(g.ImageStr != null && g.ImageData != null)
+                //    {
+                //        g.ImageStr = g.ImageStr + "base64," + Convert.ToBase64String(g.ImageData);
+                //    }
+                //});
                 return Ok(new {statusMessage = "Graphic novels retrieved!", graphicNovels = graphicNovelsFound});
             }
             return BadRequest(new {statusMessage = "No graphic novels found."});

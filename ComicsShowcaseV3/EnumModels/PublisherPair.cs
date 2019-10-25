@@ -5,8 +5,8 @@ namespace ComicsShowcaseV3.EnumModels
 {
     public class PublisherPair
     {
-        [DisplayName("enumValue")]
-        public Publisher EnumValue { get; set; }
+        [DisplayName("value")]
+        public Publisher Value { get; set; }
 
         [DisplayName("name")]
         public string Name { get; set; }
